@@ -1,7 +1,7 @@
 from flask import Flask, request, abort, jsonify
 import socket, logging
 
-logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w", format="%(asctime)s %(levelname)s %(message)s")
+logging.basicConfig(level=logging.INFO, filename="server_log.log",filemode="w", format="%(asctime)s %(levelname)s %(message)s")
 
 app = Flask(__name__)
 maked_cmds = 0
