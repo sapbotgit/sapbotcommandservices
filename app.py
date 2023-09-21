@@ -23,6 +23,8 @@ def run_command():
         response = 'Hello World!'
     elif cmd == 'echo':
         response = args[0]
+    elif cmd == 'plus':
+        response = args[0] + args[1]
     #RETURN
     if response == None:
         code = 400
