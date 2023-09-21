@@ -1,5 +1,5 @@
 from flask import Flask, request, abort, jsonify
-import socket
+import socket, logging
 
 app = Flask(__name__)
 maked_cmds = 0
@@ -19,6 +19,7 @@ def run_command():
     #RUN
     cmd = request.json["name"]
     args = request.json["args"]
+    logging.info("Running command " + cmd)
     response = None
     if cmd == 'helloworld':
         response = 'Hello World!'
@@ -31,6 +32,7 @@ def run_command():
     #RETURN
     if response == None:
         code = 400
+        logging.warning("Command " + cmd + " not found")
     else:
         code = 201
     maked_cmds += 1
