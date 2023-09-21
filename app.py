@@ -1,4 +1,5 @@
 from flask import Flask, request, abort, jsonify
+import socket
 
 app = Flask(__name__)
 maked_cmds = 0
@@ -34,4 +35,4 @@ def run_command():
     return jsonify({'response':response}), code
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host=socket.gethostbyname(socket.gethostname()), debug=True)
