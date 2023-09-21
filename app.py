@@ -1,6 +1,9 @@
 from flask import Flask, request, abort, jsonify
 import socket, logging
 
+FORMAT = '%(asctime)s %(clientip)-15s %(user)-8s %(message)s'
+logging.basicConfig(format=FORMAT)
+
 app = Flask(__name__)
 maked_cmds = 0
 
