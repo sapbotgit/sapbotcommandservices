@@ -26,7 +26,7 @@ def run_command():
         response = args[0]
     elif cmd == 'plus':
         response = args[0] + args[1]
-    elif cmd == 'getmakedcmds':
+    elif cmd == 'get_maked':
         response = maked_cmds
     #RETURN
     if response == None:
