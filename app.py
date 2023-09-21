@@ -42,6 +42,8 @@ def run_command():
             fib2 = fib_sum
             i = i + 1
         response = fib2
+    elif cmd == 'multiply':
+        response = args[0] * args[1]
     #RETURN
     if response == None:
         code = 400
