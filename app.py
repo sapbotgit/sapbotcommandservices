@@ -9,7 +9,7 @@ ip = '0.0.0.0'
 
 @app.route('/')
 def index():
-    return f"""<!DOCTYPE html>
+    return """<!DOCTYPE html>
 <html>
 <head>
   <title>API GUI</title>
@@ -19,7 +19,7 @@ def index():
   <h1>API GUI</h1>
 
   <div>
-    <h3>Today maked {maked_cmds} commands</h3>
+    <h3>Today maked <span id="makedCmds">0</span> commands</h3>
   </div>
 
   <div>
@@ -39,7 +39,7 @@ def index():
   </div>
 
   <script>
-    const apiUrl = 'http://{ip}:5000/run'; // Replace with your API URL
+    const apiUrl = 'http://{ipgugu}:5000/run'; // Replace with your API URL
 
     function runCommand() {
       const cmd = document.getElementById('cmd').value;
@@ -65,11 +65,20 @@ def index():
     }
 
     // Fetch the maked_cmds value on page load
+    $.ajax({
+      url: '/',
+      type: 'GET',
+      success: function(response) {
+        document.getElementById('makedCmds').innerText = response.maked_cmds;
+      },
+      error: function(xhr, status, error) {
+        console.log('Error fetching maked_cmds:', error);
+      }
     });
   </script>
 </body>
 </html>
-"""
+""".format(ipgugu=ip)
 
 @app.route('/run', methods=['POST'])
 def run_command():
