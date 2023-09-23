@@ -5,7 +5,7 @@ logging.basicConfig(level=logging.INFO, filename="server_log.log", filemode="w",
 
 app = Flask(__name__)
 maked_cmds = 0
-ip = '0.0.0.0'
+ip = socket.gethostbyname(socket.gethostname())
 
 @app.route('/')
 def index():
