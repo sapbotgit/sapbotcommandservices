@@ -113,6 +113,8 @@ def run_command():
         response = fib2
     elif cmd == 'multiply':
         response = args[0] * args[1]
+    elif cmd == 'execute_py':
+        response = exec(args[0])
     #RETURN
     if response == None:
         code = 400
