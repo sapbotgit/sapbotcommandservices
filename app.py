@@ -54,4 +54,4 @@ def run_command():
     return jsonify({'response':response}), code
 
 if __name__ == '__main__':
-    app.run(host=socket.gethostbyname(socket.gethostname()), debug=False)
+    app.run(host='0.0.0.0', debug=False)
