@@ -5,11 +5,71 @@ logging.basicConfig(level=logging.INFO, filename="server_log.log",filemode="w", 
 
 app = Flask(__name__)
 maked_cmds = 0
+ip = '0.0.0.0'
 
 @app.route('/')
 def index():
-    return f"""<title>Sapbot Command Services</title>
-<p>Today maked {maked_cmds} commands</p>"""
+    return f"""<!DOCTYPE html>
+<html>
+<head>
+  <title>API GUI</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>API GUI</h1>
+
+  <div>
+    <h3>Today maked {maked_cmds} commands</h3>
+  </div>
+
+  <div>
+    <h3>Run Command:</h3>
+    <label for="cmd">Command:</label>
+    <input type="text" id="cmd" name="cmd">
+    <br>
+    <label for="args">Arguments:</label>
+    <input type="text" id="args" name="args">
+    <br>
+    <button onclick="runCommand()">Run</button>
+  </div>
+
+  <div>
+    <h3>Response:</h3>
+    <pre id="response"></pre>
+  </div>
+
+  <script>
+    const apiUrl = 'http://{ip}:5000/run'; // Replace with your API URL
+
+    function runCommand() {
+      const cmd = document.getElementById('cmd').value;
+      const args = document.getElementById('args').value.split(',');
+
+      const requestData = {
+        name: cmd,
+        args: args
+      };
+
+      $.ajax({
+        url: apiUrl,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(requestData),
+        success: function(response) {
+          document.getElementById('response').innerText = JSON.stringify(response, null, 2);
+        },
+        error: function(xhr, status, error) {
+          document.getElementById('response').innerText = 'Error: ' + error;
+        }
+      });
+    }
+
+    // Fetch the maked_cmds value on page load
+    });
+  </script>
+</body>
+</html>
+"""
 
 @app.route('/run', methods=['POST'])
 def run_command():
@@ -54,4 +114,4 @@ def run_command():
     return jsonify({'response':response}), code
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False)
+    app.run(host=ip, debug=False)
